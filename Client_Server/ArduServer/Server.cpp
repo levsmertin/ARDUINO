@@ -139,10 +139,18 @@ DWORD WINAPI SexToClient(LPVOID client_socket)
 
 		sss.resize(bytes_recv);
 		memcpy(&sss[0], &buff[0], bytes_recv);
+
 		std::cout << "C->S: " << sss << std::endl;
 		//printf("C->S: \s\n", sss.c_str());
 
-		send(my_sock, &buff[0], bytes_recv, 0);
+		if (sss == "1\n")
+		{
+			send(my_sock, "1", 1, 0);
+		}
+		else
+		{
+			send(my_sock, "0", 1, 0);
+		}
 	}
 
 	// если мы здесь, то произошел выход из цикла по причине
